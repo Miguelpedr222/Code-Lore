@@ -96,6 +96,17 @@
             background-color: #d4005c;
         }
         
+        .btn-portfolio {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-portfolio:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
         section {
             padding: 80px 0;
         }
@@ -377,6 +388,20 @@
             font-weight: 500;
             margin-bottom: 15px;
             display: block;
+        }
+        
+        .portfolio-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .portfolio-buttons .btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
         }
         
         /* Methodology Section */
@@ -736,6 +761,10 @@
             .cta-title {
                 font-size: 2rem;
             }
+            
+            .portfolio-buttons {
+                flex-direction: column;
+            }
         }
         
         @media (max-width: 576px) {
@@ -886,6 +915,16 @@
                         <span class="portfolio-category">Barbearia</span>
                         <h3 class="portfolio-title">Barbearia Vintage</h3>
                         <p>Site institucional para barbearia com agenda online, galeria de trabalhos e localização.</p>
+                        
+                        <!-- BOTÕES ADICIONADOS PARA CONEXÃO -->
+                        <div class="portfolio-buttons">
+                            <a href="barbearia-vintage.html" target="_blank" class="btn btn-portfolio">
+                                <i class="fas fa-external-link-alt"></i> Ver Site
+                            </a>
+                            <a href="#contact" class="btn">
+                                <i class="fas fa-comment"></i> Quero um Igual
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
@@ -897,6 +936,16 @@
                         <span class="portfolio-category">Restaurante</span>
                         <h3 class="portfolio-title">Restaurante Sabor Caseiro</h3>
                         <p>Site com cardápio digital, reserva de mesas e integração com delivery.</p>
+                        
+                        <!-- BOTÕES PARA FUTURA CONEXÃO -->
+                        <div class="portfolio-buttons">
+                            <a href="#portfolio" class="btn btn-portfolio" onclick="showComingSoon('restaurante')">
+                                <i class="fas fa-external-link-alt"></i> Ver Site (Em Breve)
+                            </a>
+                            <a href="#contact" class="btn">
+                                <i class="fas fa-comment"></i> Quero um Igual
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
@@ -908,6 +957,16 @@
                         <span class="portfolio-category">Salão de Beleza</span>
                         <h3 class="portfolio-title">Salão Beleza Pura</h3>
                         <p>Landing page para captação de clientes com portfólio de trabalhos e agendamento.</p>
+                        
+                        <!-- BOTÕES PARA FUTURA CONEXÃO -->
+                        <div class="portfolio-buttons">
+                            <a href="#portfolio" class="btn btn-portfolio" onclick="showComingSoon('salao')">
+                                <i class="fas fa-external-link-alt"></i> Ver Site (Em Breve)
+                            </a>
+                            <a href="#contact" class="btn">
+                                <i class="fas fa-comment"></i> Quero um Igual
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1033,7 +1092,7 @@
                             <i class="fas fa-phone"></i>
                             <div>
                                 <strong>Telefone/WhatsApp</strong>
-                                <div>(21) 99721-4239</div>
+                                <div>(11) 99999-9999</div>
                             </div>
                         </li>
                         <li>
@@ -1055,7 +1114,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2026 Code & Lore - Desenvolvimento de Sites e Sistemas. Todos os direitos reservados.</p>
+                <p>&copy; 2023 Code & Lore - Desenvolvimento de Sites e Sistemas. Todos os direitos reservados.</p>
                 <p style="margin-top: 10px;">Transformando ideias em presença digital para pequenos negócios.</p>
             </div>
         </div>
@@ -1115,30 +1174,38 @@
             });
         }
         
-        // Update WhatsApp number in all links
-        function updateWhatsAppNumber() {
-            const phoneNumber = "5511999999999"; // Change this to your actual number
-            const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
-            
-            whatsappLinks.forEach(link => {
-                const currentHref = link.getAttribute('href');
-                const newHref = currentHref.replace(/wa\.me\/\d+/, `wa.me/${phoneNumber}`);
-                link.setAttribute('href', newHref);
-            });
-            
-            // Update phone links
-            const phoneLinks = document.querySelectorAll('a[href^="tel"]');
-            phoneLinks.forEach(link => {
-                link.setAttribute('href', `tel:+${phoneNumber}`);
-            });
-            
-            // Update phone number in footer
-            const phoneDisplay = document.querySelectorAll('.contact-info strong + div');
-            if(phoneDisplay.length > 0) {
-                // Format phone number for display: (11) 99999-9999
-                const formattedNumber = `(${phoneNumber.substring(2,4)}) ${phoneNumber.substring(4,9)}-${phoneNumber.substring(9)}`;
-                phoneDisplay[0].textContent = formattedNumber;
+        // Function to show coming soon alert
+        function showComingSoon(type) {
+            let projectName = '';
+            if (type === 'restaurante') {
+                projectName = 'Restaurante Sabor Caseiro';
+            } else if (type === 'salao') {
+                projectName = 'Salão Beleza Pura';
             }
+            
+            alert(`O site do ${projectName} está em desenvolvimento e estará disponível em breve!\n\nEnquanto isso, você pode ver o site da Barbearia Vintage como exemplo do meu trabalho.\n\nQuer um site igual para seu negócio? Entre em contato!`);
+            
+            // Optional: Redirect to contact section
+            document.querySelector('#contact').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Function to open example sites with tracking
+        function openExampleSite(siteName, url) {
+            // Here you can add analytics tracking if you want
+            console.log(`Cliente visualizou exemplo: ${siteName}`);
+            
+            // Open in new tab
+            window.open(url, '_blank');
+            
+            // Optional: Show a follow-up message after a delay
+            setTimeout(() => {
+                // You can customize this message
+                if (confirm(`Gostou do exemplo da ${siteName}?\n\nQuer um site igual para seu negócio?`)) {
+                    window.open('https://wa.me/5511999999999?text=Olá! Vi o exemplo da ' + siteName + ' e quero um site igual para meu negócio.', '_blank');
+                }
+            }, 2000);
         }
         
         // Simple animation on scroll
